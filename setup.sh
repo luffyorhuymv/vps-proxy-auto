@@ -40,9 +40,16 @@ cd /tmp
 if [ -d "3proxy" ]; then rm -rf 3proxy; fi
 
 # Tải bản release ổn định nhất (0.9.4)
-# Nếu link 0.9.4 lỗi, sẽ tự động thử link master
-wget https://github.com/z3APA82/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz || \
-wget https://github.com/z3APA82/3proxy/archive/refs/heads/master.tar.gz -O 3proxy.tar.gz
+# Thử nhiều link tải khác nhau để tránh lỗi 404
+echo -e "${YELLOW}Thử tải 3proxy từ nhiều nguồn...${NC}"
+if wget https://github.com/z3APA82/3proxy/archive/0.9.4.tar.gz -O 3proxy.tar.gz; then
+    echo -e "${GREEN}Tải thành công bản 0.9.4${NC}"
+elif wget https://github.com/z3APA82/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz; then
+    echo -e "${GREEN}Tải thành công bản 0.9.4 (tags)${NC}"
+else
+    echo -e "${YELLOW}Thử tải bản master...${NC}"
+    wget https://github.com/z3APA82/3proxy/archive/refs/heads/master.tar.gz -O 3proxy.tar.gz
+fi
 
 tar -xvzf 3proxy.tar.gz
 # Đổi tên thư mục giải nén thành 3proxy để nhất quán
