@@ -17,16 +17,18 @@ Script tự động cài đặt Proxy (HTTP & SOCKS5) trên VPS Linux (Ubuntu/De
 2. Upload file `setup.sh` lên repo đó.
 
 ### Bước 2: Chạy trên VPS
-Mở terminal của VPS và chạy lệnh sau (thay `username` và `repo` bằng thông tin của bạn):
+Mở terminal của VPS và chạy lệnh sau (hãy thay `YOUR_GITHUB_USERNAME` và `YOUR_REPO_NAME` bằng thông tin tài khoản và repository của bạn):
 
 ```bash
 wget https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/setup.sh && chmod +x setup.sh && sudo ./setup.sh
 ```
 
-Hoặc nếu bạn muốn dùng bản này ngay:
+Hoặc nếu bạn đã tải file lên và muốn dùng `curl`:
 ```bash
 curl -L https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/setup.sh | sudo bash
 ```
+
+**Lưu ý quan trọng:** Bạn phải thay thế `YOUR_GITHUB_USERNAME` và `YOUR_REPO_NAME` trong URL trên bằng tên người dùng GitHub và tên repository thực tế của bạn thì lệnh mới hoạt động. Nếu bạn copy y hệt mà không sửa, bạn sẽ gặp lỗi `404 Not Found`.
 
 ## Lưu ý
 - Script này yêu cầu quyền **root**.
