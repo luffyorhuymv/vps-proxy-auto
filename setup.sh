@@ -38,7 +38,11 @@ update_system
 echo -e "${YELLOW}Đang tải và biên dịch 3proxy...${NC}"
 cd /tmp
 if [ -d "3proxy" ]; then rm -rf 3proxy; fi
-git clone https://github.com/z3APA82/3proxy.git
+
+# Sử dụng wget để tải source code thay vì git clone để tránh lỗi xác thực
+wget https://github.com/z3APA82/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz
+tar -xvzf 3proxy.tar.gz
+mv 3proxy-0.9.4 3proxy
 cd 3proxy
 ln -s Makefile.Linux Makefile
 make || { echo -e "${RED}Lỗi khi biên dịch 3proxy. Kiểm tra log phía trên.${NC}"; exit 1; }
