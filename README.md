@@ -17,21 +17,23 @@ Script tự động cài đặt Proxy (HTTP & SOCKS5) trên VPS Linux (Ubuntu/De
 2. Upload file `setup.sh` lên repo đó.
 
 ### Bước 2: Chạy trên VPS
-Mở terminal của VPS và chạy lệnh sau (**QUAN TRỌNG: Bạn PHẢI thay thế `YOUR_GITHUB_USERNAME` và `YOUR_REPO_NAME` bằng thông tin thực tế của bạn**):
+Mở terminal của VPS và chạy lệnh sau (**Đây là lệnh ĐÃ THAY THẾ tài khoản của bạn `luffyorhuymv`, bạn có thể copy và chạy ngay**):
 
 ```bash
-# Ví dụ nếu username là 'abc' và repo là 'proxy-vps':
-# wget https://raw.githubusercontent.com/abc/proxy-vps/main/setup.sh && chmod +x setup.sh && sudo ./setup.sh
+# Lệnh wget (Khuyên dùng):
+wget https://raw.githubusercontent.com/luffyorhuymv/vps-proxy-auto/main/setup.sh && chmod +x setup.sh && sudo ./setup.sh
 
-wget https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/setup.sh && chmod +x setup.sh && sudo ./setup.sh
+# Hoặc lệnh curl:
+curl -L https://raw.githubusercontent.com/luffyorhuymv/vps-proxy-auto/main/setup.sh | sudo bash
 ```
 
-Hoặc nếu bạn muốn dùng `curl`:
+> **Lưu ý:** Lỗi `404 Not Found` thường xảy ra nếu bạn copy dòng lệnh mẫu chứa `YOUR_GITHUB_USERNAME` mà không thay thế bằng tên thật. Hãy dùng lệnh trên để tránh lỗi.
+
+### Cách chạy khác (Dùng Git Clone)
+Nếu lệnh trên vẫn lỗi tải, hãy dùng cách này (tải cả thư mục về VPS):
 ```bash
-curl -L https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/setup.sh | sudo bash
+git clone https://github.com/luffyorhuymv/vps-proxy-auto.git && cd vps-proxy-auto && chmod +x setup.sh && sudo ./setup.sh
 ```
-
-> **CẢNH BÁO LỖI 404:** Nếu bạn copy y hệt mà không sửa `YOUR_GITHUB_USERNAME` và `YOUR_REPO_NAME`, bạn chắc chắn sẽ gặp lỗi `404 Not Found`. Đây là nguyên nhân phổ biến nhất gây lỗi khi chạy lệnh trên.
 
 ## Lưu ý
 - Script này yêu cầu quyền **root**.
