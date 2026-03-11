@@ -41,24 +41,24 @@ cd /tmp
 if [ -d "3proxy" ]; then rm -rf 3proxy; fi
 
 # Tải bản release ổn định nhất
-# Thử nhiều link tải khác nhau để tránh lỗi 404
+# Ưu tiên tải bản tar.gz vì wget không bao giờ hỏi mật khẩu GitHub đối với repo công khai
 echo -e "${YELLOW}Thử tải 3proxy từ nhiều nguồn...${NC}"
-if git clone https://github.com/3proxy/3proxy.git 3proxy; then
+if wget -q --show-progress https://github.com/3proxy/3proxy/archive/0.9.4.tar.gz -O 3proxy.tar.gz; then
+    echo -e "${GREEN}Tải thành công bản 0.9.4 từ GitHub (wget)${NC}"
+    tar -xvzf 3proxy.tar.gz
+    mv 3proxy-* 3proxy
+    cd 3proxy
+elif wget -q --show-progress https://github.com/3proxy/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz; then
+    echo -e "${GREEN}Tải thành công bản 0.9.4 (tags - wget)${NC}"
+    tar -xvzf 3proxy.tar.gz
+    mv 3proxy-* 3proxy
+    cd 3proxy
+elif git clone --depth 1 https://github.com/3proxy/3proxy.git 3proxy; then
     echo -e "${GREEN}Tải thành công từ GitHub repo (git clone)${NC}"
-    cd 3proxy
-elif wget https://github.com/3proxy/3proxy/archive/0.9.4.tar.gz -O 3proxy.tar.gz; then
-    echo -e "${GREEN}Tải thành công bản 0.9.4${NC}"
-    tar -xvzf 3proxy.tar.gz
-    mv 3proxy-* 3proxy
-    cd 3proxy
-elif wget https://github.com/3proxy/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz; then
-    echo -e "${GREEN}Tải thành công bản 0.9.4 (tags)${NC}"
-    tar -xvzf 3proxy.tar.gz
-    mv 3proxy-* 3proxy
     cd 3proxy
 else
     echo -e "${YELLOW}Thử tải bản master zip...${NC}"
-    wget https://github.com/3proxy/3proxy/archive/refs/heads/master.tar.gz -O 3proxy.tar.gz
+    wget -q --show-progress https://github.com/3proxy/3proxy/archive/refs/heads/master.tar.gz -O 3proxy.tar.gz
     tar -xvzf 3proxy.tar.gz
     mv 3proxy-* 3proxy
     cd 3proxy
