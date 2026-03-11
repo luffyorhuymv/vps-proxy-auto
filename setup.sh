@@ -42,22 +42,22 @@ if [ -d "3proxy" ]; then rm -rf 3proxy; fi
 # Tải bản release ổn định nhất
 # Thử nhiều link tải khác nhau để tránh lỗi 404
 echo -e "${YELLOW}Thử tải 3proxy từ nhiều nguồn...${NC}"
-if git clone https://github.com/z3APA82/3proxy.git 3proxy; then
+if git clone https://github.com/3proxy/3proxy.git 3proxy; then
     echo -e "${GREEN}Tải thành công từ GitHub repo (git clone)${NC}"
     cd 3proxy
-elif wget https://github.com/z3APA82/3proxy/archive/0.9.4.tar.gz -O 3proxy.tar.gz; then
+elif wget https://github.com/3proxy/3proxy/archive/0.9.4.tar.gz -O 3proxy.tar.gz; then
     echo -e "${GREEN}Tải thành công bản 0.9.4${NC}"
     tar -xvzf 3proxy.tar.gz
     mv 3proxy-* 3proxy
     cd 3proxy
-elif wget https://github.com/z3APA82/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz; then
+elif wget https://github.com/3proxy/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz; then
     echo -e "${GREEN}Tải thành công bản 0.9.4 (tags)${NC}"
     tar -xvzf 3proxy.tar.gz
     mv 3proxy-* 3proxy
     cd 3proxy
 else
     echo -e "${YELLOW}Thử tải bản master zip...${NC}"
-    wget https://github.com/z3APA82/3proxy/archive/refs/heads/master.tar.gz -O 3proxy.tar.gz
+    wget https://github.com/3proxy/3proxy/archive/refs/heads/master.tar.gz -O 3proxy.tar.gz
     tar -xvzf 3proxy.tar.gz
     mv 3proxy-* 3proxy
     cd 3proxy
