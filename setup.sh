@@ -3,6 +3,7 @@
 # ==========================================================
 # Script: setup_proxy.sh
 # Purpose: Auto setup 3proxy (HTTP/SOCKS5) on VPS (Ubuntu/Debian)
+# Version: 1.0.1 (Fixed 3proxy 404 & Git Auth)
 # Features: Auto-fix common errors, simple authentication, systemd service
 # ==========================================================
 
