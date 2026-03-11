@@ -39,22 +39,30 @@ echo -e "${YELLOW}Đang tải và biên dịch 3proxy...${NC}"
 cd /tmp
 if [ -d "3proxy" ]; then rm -rf 3proxy; fi
 
-# Tải bản release ổn định nhất (0.9.4)
+# Tải bản release ổn định nhất
 # Thử nhiều link tải khác nhau để tránh lỗi 404
 echo -e "${YELLOW}Thử tải 3proxy từ nhiều nguồn...${NC}"
-if wget https://github.com/z3APA82/3proxy/archive/0.9.4.tar.gz -O 3proxy.tar.gz; then
+if git clone https://github.com/z3APA82/3proxy.git 3proxy; then
+    echo -e "${GREEN}Tải thành công từ GitHub repo (git clone)${NC}"
+    cd 3proxy
+elif wget https://github.com/z3APA82/3proxy/archive/0.9.4.tar.gz -O 3proxy.tar.gz; then
     echo -e "${GREEN}Tải thành công bản 0.9.4${NC}"
+    tar -xvzf 3proxy.tar.gz
+    mv 3proxy-* 3proxy
+    cd 3proxy
 elif wget https://github.com/z3APA82/3proxy/archive/refs/tags/0.9.4.tar.gz -O 3proxy.tar.gz; then
     echo -e "${GREEN}Tải thành công bản 0.9.4 (tags)${NC}"
+    tar -xvzf 3proxy.tar.gz
+    mv 3proxy-* 3proxy
+    cd 3proxy
 else
-    echo -e "${YELLOW}Thử tải bản master...${NC}"
+    echo -e "${YELLOW}Thử tải bản master zip...${NC}"
     wget https://github.com/z3APA82/3proxy/archive/refs/heads/master.tar.gz -O 3proxy.tar.gz
+    tar -xvzf 3proxy.tar.gz
+    mv 3proxy-* 3proxy
+    cd 3proxy
 fi
 
-tar -xvzf 3proxy.tar.gz
-# Đổi tên thư mục giải nén thành 3proxy để nhất quán
-mv 3proxy-* 3proxy
-cd 3proxy
 ln -s Makefile.Linux Makefile
 make || { echo -e "${RED}Lỗi khi biên dịch 3proxy. Kiểm tra log phía trên.${NC}"; exit 1; }
 
