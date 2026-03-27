@@ -18,6 +18,7 @@ HTTP_PORT=8080
 SOCKS_PORT=1080
 PROXY_USER="huy"
 PROXY_PASS="huy"
+PROXY_ALIAS_BASE="nst-proxy"
 
 log_info() {
     echo -e "${YELLOW}$1${NC}"
@@ -48,6 +49,26 @@ wait_for_port() {
 
 show_recent_logs() {
     journalctl -u 3proxy --no-pager | tail -n 20 || true
+}
+
+print_nst_formats() {
+    local ip="$1"
+    local http_alias="${PROXY_ALIAS_BASE}-http"
+    local socks_alias="${PROXY_ALIAS_BASE}-socks5"
+
+    log_ok "NSTBROWSER INPUT FORMATS:"
+    echo -e "${YELLOW}HTTP:${NC}"
+    echo -e "http://${PROXY_USER}:${PROXY_PASS}@${ip}:${HTTP_PORT}:${http_alias}"
+    echo -e "${ip}:${HTTP_PORT}:${http_alias}"
+    echo -e "${ip}:${HTTP_PORT}:${PROXY_USER}:${PROXY_PASS}:${http_alias}"
+    echo -e "http://${ip}:${HTTP_PORT}:${PROXY_USER}:${PROXY_PASS}:${http_alias}"
+    echo -e
+    echo -e "${YELLOW}SOCKS5:${NC}"
+    echo -e "socks5://${PROXY_USER}:${PROXY_PASS}@${ip}:${SOCKS_PORT}:${socks_alias}"
+    echo -e "${ip}:${SOCKS_PORT}:${socks_alias}"
+    echo -e "${ip}:${SOCKS_PORT}:${PROXY_USER}:${PROXY_PASS}:${socks_alias}"
+    echo -e "socks5://${ip}:${SOCKS_PORT}:${PROXY_USER}:${PROXY_PASS}:${socks_alias}"
+    log_ok "========================================"
 }
 
 verify_proxy() {
@@ -218,4 +239,5 @@ log_ok "Dinh dang IP:PORT:USER:PASS:"
 echo -e "${YELLOW}HTTP Proxy: ${IP_ADDRESS}:${HTTP_PORT}:${PROXY_USER}:${PROXY_PASS}${NC}"
 echo -e "${YELLOW}SOCKS5 Proxy: ${IP_ADDRESS}:${SOCKS_PORT}:${PROXY_USER}:${PROXY_PASS}${NC}"
 log_ok "========================================"
+print_nst_formats "${IP_ADDRESS}"
 echo -e "Dung lenh sau de kiem tra: curl -x http://${PROXY_USER}:${PROXY_PASS}@${IP_ADDRESS}:${HTTP_PORT} https://google.com"
